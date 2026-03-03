@@ -1,0 +1,53 @@
+name: Feature Request
+description: Suggest a new check or feature for Deploy Gate
+title: "[Feature]: "
+labels: ["enhancement"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for suggesting a feature! The best checks come from real incidents.
+  - type: textarea
+    id: problem
+    attributes:
+      label: What problem does this solve?
+      description: Describe the real-world bug or incident this would have caught.
+      placeholder: "e.g., I deployed with debug logging enabled and it leaked user data to stdout..."
+    validations:
+      required: true
+  - type: textarea
+    id: solution
+    attributes:
+      label: Proposed check
+      description: Describe the check you'd like to see.
+      placeholder: |
+        - ID: PD-XX
+        - Phase: pre-deploy
+        - What it checks: ...
+        - How to automate: ...
+    validations:
+      required: true
+  - type: dropdown
+    id: phase
+    attributes:
+      label: Which phase?
+      options:
+        - pre-eng
+        - pre-test
+        - pre-deploy
+        - Not sure
+    validations:
+      required: true
+  - type: dropdown
+    id: stack
+    attributes:
+      label: Which stack?
+      options:
+        - core (all projects)
+        - mobile (React Native / Expo)
+        - web (Next.js / Remix / Nuxt)
+        - infra (Docker / systemd)
+        - cli (Go)
+        - Not sure
+    validations:
+      required: true
