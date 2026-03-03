@@ -6,6 +6,7 @@ import { deadForms } from "../src/checks/dead-forms.js";
 import { testCoverageMap } from "../src/checks/test-coverage-map.js";
 import { lockFile } from "../src/checks/lock-file.js";
 import { gitClean } from "../src/checks/git-clean.js";
+import { goVet } from "../src/checks/go-vet.js";
 
 const FIXTURES = join(import.meta.dirname, "fixtures");
 const CLEAN = join(FIXTURES, "clean-project");
@@ -85,5 +86,18 @@ describe("gitClean", () => {
   it("has correct metadata", () => {
     expect(gitClean.id).toBe("PD-0");
     expect(gitClean.phase).toBe("pre-deploy");
+  });
+});
+
+describe("goVet", () => {
+  it("skips when no go.mod", async () => {
+    const result = await goVet.run!(CLEAN);
+    expect(result.status).toBe("skip");
+  });
+
+  it("has correct metadata", () => {
+    expect(goVet.id).toBe("C-PT-3");
+    expect(goVet.phase).toBe("pre-test");
+    expect(goVet.stack).toBe("cli");
   });
 });
